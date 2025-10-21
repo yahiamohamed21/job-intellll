@@ -10,7 +10,7 @@ import {
   CartesianGrid,
   Tooltip
 } from "recharts";
-import { ChartContainer, ChartTooltipContent } from "../../components/ui/chart.jsx";
+import { ChartContainer, ChartTooltipContent } from "../../Components/ui/chart.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileLines, faWandMagicSparkles, faBriefcase, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
