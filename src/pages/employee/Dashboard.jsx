@@ -1,5 +1,5 @@
 import React from "react";
- import TrendBarChart from "../../components/TrendBarChart.jsx";
+ import TrendBarChart from "../../Components/TrendBarChart.jsx";
 
 //  font awesome 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
