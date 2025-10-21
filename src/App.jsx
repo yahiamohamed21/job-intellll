@@ -67,8 +67,9 @@ export default function App() {
           </Route>
         </Route>
 
-        {/* 404 */}
+        {/*NOT-FOUND*/}
         <Route path="*" element={<NotFound />} />
+        
     </Routes>
   );
 }
