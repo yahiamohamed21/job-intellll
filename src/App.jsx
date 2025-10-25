@@ -54,7 +54,7 @@ export default function App(){
 
     const id = setTimeout(() => {
       hideLoader();
-    }, 600);
+    }, 2600);
 
     return () => clearTimeout(id);
   }, [location.pathname, suppressNext, setSuppressNext, showLoader, hideLoader]);
