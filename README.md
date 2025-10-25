@@ -39,7 +39,6 @@ Job Intel هو تطبيق ويب تفاعلي يربط بين الباحثين �
 🧰 Development	Node.js	≥ 18.0.0
 🧰 Package Manager	npm / yarn / pnpm	latest
 🧩 هيكل المشروع
-
 job-intel/
 ├── public/
 │   ├── login-illustration.svg
@@ -104,6 +103,7 @@ yarn install
 3️⃣ تشغيل المشروع
 npm run dev
 # أو
+yarn dev
 
 
 ثم افتح:
@@ -157,7 +157,6 @@ Cloudinary / AWS S3	تخزين الفيديوهات
 Tailwind CDN	تصميم سريع أثناء التطوير
 🎨 التصميم (UI/UX)
 
-
 TailwindCSS في كل الصفحات
 
 دعم النمط الفاتح والداكن
@@ -192,9 +191,11 @@ npm run build
 
 المخرجات في /dist ويمكن نشرها على:
 
+Netlify
+
 Vercel
 
-GitHub Pages >>  https://github.com/yahiamohamed21/job-intellll
+GitHub Pages
 
 أو أي سيرفر Node.js
 
@@ -211,8 +212,11 @@ index.css
 
 npx tailwindcss init -p
 
- # create Dashboard BY
-#Yahia Mohamed — Frontend Developer  
+🧑‍💻 المساهمون
+NOUR MOSTAFA --- 
+Yahia Mohamed — Frontend Developer & System Designer
+Nada Mohamed -- Frontend Developer & System Designer
+
 
 
 📡 التكامل المقترح مع Backend
@@ -223,3 +227,47 @@ Auth	JWT / OAuth
 Video Upload	S3 / Cloudinary
 AI Pipeline	Whisper + GPT-4 Evaluation
 Endpoints	/api/interviews, /api/jobs, /api/users
+🔗 API Endpoints التفصيلية
+🧍 المستخدمين (Users)
+الطريقة	المسار	الوظيفة
+POST	/api/auth/signup	إنشاء حساب جديد
+POST	/api/auth/login	تسجيل الدخول وإرجاع JWT
+GET	/api/users/profile	جلب بيانات المستخدم الحالي
+PUT	/api/users/profile	تحديث بيانات المستخدم
+DELETE	/api/users/:id	حذف مستخدم
+💼 الوظائف (Jobs)
+الطريقة	المسار	الوظيفة
+GET	/api/jobs	جلب جميع الوظائف
+POST	/api/jobs	إضافة وظيفة جديدة (HR فقط)
+GET	/api/jobs/:id	جلب تفاصيل وظيفة معينة
+PUT	/api/jobs/:id	تعديل وظيفة
+DELETE	/api/jobs/:id	حذف وظيفة
+👤 المتقدمون (Candidates)
+الطريقة	المسار	الوظيفة
+GET	/api/candidates	جلب جميع المتقدمين
+POST	/api/candidates/apply	تقديم طلب لوظيفة
+GET	/api/candidates/:id	جلب تفاصيل متقدم
+DELETE	/api/candidates/:id	حذف متقدم
+🎥 المقابلات (Interviews)
+الطريقة	المسار	الوظيفة
+GET	/api/interviews	جلب جميع المقابلات
+POST	/api/interviews/start	بدء مقابلة جديدة
+POST	/api/interviews/submit	تسليم المقابلة النهائية
+GET	/api/interviews/:id	جلب تفاصيل مقابلة
+POST	/api/interviews/upload	رفع فيديو مقابلة
+POST	/api/interviews/evaluate	تقييم المقابلة عبر الذكاء الاصطناعي
+
+نموذج تقييم AI (Response Example):
+
+{
+  "overall_score": 84,
+  "clarity": 90,
+  "relevance": 80,
+  "communication": 83,
+  "feedback": "إجابات واضحة ومنظمة، حاول إضافة تفاصيل أكثر عن الخبرة التقنية."
+}
+
+📄 الترخيص (License)
+
+MIT License © 2025 Job Intel
+الاستخدام شخصي أو تعليمي فقط — النشر التجاري يتطلب إذن مسبق.

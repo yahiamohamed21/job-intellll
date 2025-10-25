@@ -3,14 +3,30 @@ import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider.jsx";
 
-export default function RoleRoute({ allowed }) {
-  const { user, role } = useAuth();
+export default function RoleRoute({ allow }) {
+  const { role, loading } = useAuth();
 
-  // لو مفيش يوزر، سيبه لPrivateRoute يتصرف (لازم تكون حاطط PrivateRoute فوقه)
-  if (!user) return <Outlet />;
+  // allow ممكن تكون string وحدة أو array
+  const allowedRoles = Array.isArray(allow) ? allow : [allow];
 
-  const list = Array.isArray(allowed) ? allowed : [allowed];
-  if (!list.includes(role)) return <Navigate to="/" replace />;
+  if (loading) {
+    return (
+      <div style={{
+        minHeight:"100dvh",
+        display:"grid",
+        placeItems:"center",
+        background:"var(--bg)",
+        color:"var(--text)"
+      }}>
+        جاري التحقق من الصلاحيات...
+      </div>
+    );
+  }
+
+  if (!allowedRoles.includes(role)) {
+    // مش مسموح له يشوف الصفحة دي
+    return <Navigate to="/" replace />;
+  }
 
   return <Outlet />;
 }
