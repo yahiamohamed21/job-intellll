@@ -5,7 +5,7 @@ import React, {
   useState,
   useEffect
 } from "react";
-import FullScreenLoader from "../components/FullScreenLoader.jsx";
+import FullScreenLoader from "../Components/FullScreenLoader.jsx";
 
 const LoaderContext = createContext(null);
 
