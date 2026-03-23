@@ -334,5 +334,5 @@ POST	/api/interviews/evaluate	تقييم المقابلة عبر الذكاء ا
 
 📄 الترخيص (License)
 
-MIT License © 2025 Job Intel
+MIT License © 2026 Job Intel
 الاستخدام شخصي أو تعليمي فقط — النشر التجاري يتطلب إذن مسبق.
