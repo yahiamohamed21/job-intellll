@@ -133,6 +133,18 @@ export default function Home() {
               <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
                 At Job Intel, we believe that talent is equally distributed, but opportunity is not. Our platform leverages advanced analytics to level the playing field, giving every candidate the insights they need to succeed and every company the tools to find the perfect fit without bias.
               </p>
+              {/* New Call to Action Section */}
+              <section className="py-16 bg-primary text-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4">ابدأ رحلتك المهنية الآن</h2>
+                  <p className="text-lg mb-6">
+                    أنشئ حسابك وابدأ ملء ملفك عبر أربع خطوات سريعة لتصبح مرشحًا مميزًا.
+                  </p>
+                  <Link to="/step-1" className="inline-block bg-white text-primary font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition">
+                    انضم الآن
+                  </Link>
+                </div>
+              </section>
               <div className="grid sm:grid-cols-2 gap-6 mt-8">
                 <div className="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">

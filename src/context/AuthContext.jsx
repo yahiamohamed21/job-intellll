@@ -1,17 +1,33 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { authService } from '../api/authService';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState({ name: "Test User", accountType: "JobSeeker" });
-    const [token, setToken] = useState("dummy_token_123");
-    const [isInitializing, setIsInitializing] = useState(false);
+    const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
+    const [isInitializing, setIsInitializing] = useState(true);
 
     useEffect(() => {
-        // --- TEMPORARILY DISABLED LOGIN CHECK FOR TESTING DASHBOARD ---
-        // const initAuth = async () => { ... }
-        // initAuth();
+        try {
+            const storedToken = localStorage.getItem('token');
+            const storedUser = localStorage.getItem('user');
+
+            if (storedToken) {
+                setToken(storedToken);
+            }
+
+            if (storedUser) {
+                setUser(JSON.parse(storedUser));
+            }
+        } catch (error) {
+            console.warn('Failed to restore auth session', error);
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            setToken(null);
+            setUser(null);
+        } finally {
+            setIsInitializing(false);
+        }
     }, []);
 
     const login = (newToken, newUser) => {

@@ -8,7 +8,7 @@ import { useTheme } from "../theme/ThemeProvider.jsx";
 import { useGoogleLogin } from '@react-oauth/google';
 
 export default function Signup() {
-  const { user } = useAuth();
+  const { user, login: authContextLogin } = useAuth();
   const { theme, setTheme } = useTheme();
   const nav = useNavigate();
 
