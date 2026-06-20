@@ -1,0 +1,521 @@
+/* ── IBM Plex Sans Arabic Font Import (Arabic primary typeface) ── */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  /* Defensive dark background so the viewport never shows the user-agent
+     default white if any container fails to reach 100dvh (e.g. when the
+     body's static 100% height and the app's 100dvh min-height diverge
+     on browsers where the dynamic viewport is shorter than the static one,
+     or during overscroll on touch devices). */
+  background-color: #0F172A;
+}
+
+/* Prevent layout shift and sidebar compression when SweetAlert2 modal is displayed */
+html.swal2-shown,
+body.swal2-shown,
+html.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown),
+body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
+  height: 100% !important;
+}
+
+/* Force scrollbar so the page content never shifts horizontally when a
+   scrollbar appears or disappears (e.g. when the FullScreenLoader hides
+   and the body overflow resets). Using overflow-y:scroll instead of
+   scrollbar-gutter:stable avoids asymmetric spacing in RTL mode where
+   the scrollbar and its gutter render on the left side. The scrollbar
+   track is always reserved, so content width remains stable. */
+html {
+  overflow-y: scroll;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-arabic: 'IBM Plex Sans Arabic', sans-serif;
+    --color-primary: #FF7A00;
+    --color-primary-dark: #E06B00;
+    --color-bg-light: #F8F7F5;
+    --color-bg-dark: #0F172A;
+    --color-surface-light: #FFFFFF;
+    --color-surface-dark: #1E293B;
+    --color-border-dark: #334155;
+  }
+
+  .dark {
+    --color-primary: #2786F8;
+    --color-primary-dark: #1C6DD0;
+    --color-bg-light: #F8F7F5;
+    --color-bg-dark: #0F172A;
+    --color-surface-light: #FFFFFF;
+    --color-surface-dark: #1E293B;
+    --color-border-dark: #334155;
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.4);
+  border-radius: 20px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(71, 85, 105, 0.4);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(148, 163, 184, 0.8);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(71, 85, 105, 0.8);
+}
+
+.app {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  min-height: 100dvh;
+  width: 100%;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 24px;
+  background-color: #F8F7F5;
+  background-image:
+    radial-gradient(ellipse 90% 60% at 100% 0%, rgba(56, 189, 248, 0.07), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 0% 100%, rgba(99, 102, 241, 0.05), transparent 55%);
+  position: relative;
+  /* Clip any accidental horizontal overflow from child elements (badges,
+     long unbreakable strings, etc.) so the page never grows a horizontal
+     scrollbar. Vertical overflow remains visible for normal page scroll. */
+  overflow-x: hidden;
+}
+
+.dark .main {
+  background-color: #0F172A;
+  background-image:
+    radial-gradient(ellipse 90% 60% at 100% 0%, rgba(56, 189, 248, 0.09), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 0% 100%, rgba(96, 165, 250, 0.06), transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.012) 0%, transparent 30%);
+}
+
+@media (max-width: 1023px) {
+  /* Stack the mobile header above the main content. The desktop sidebar
+     is hidden via `hidden lg:flex` and the mobile drawer is `fixed`, so
+     only the header and the main participate in the column flow. */
+  .app {
+    flex-direction: column;
+  }
+  .main {
+    padding: 16px;
+    background-image:
+      radial-gradient(ellipse 90% 50% at 100% 0%, rgba(56, 189, 248, 0.06), transparent 50%),
+      radial-gradient(ellipse 70% 40% at 0% 100%, rgba(99, 102, 241, 0.04), transparent 50%);
+  }
+  .dark .main {
+    background-image:
+      radial-gradient(ellipse 90% 50% at 100% 0%, rgba(56, 189, 248, 0.08), transparent 50%),
+      radial-gradient(ellipse 70% 40% at 0% 100%, rgba(96, 165, 250, 0.05), transparent 50%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.012) 0%, transparent 30%);
+  }
+}
+
+/* Modal enter animations */
+@keyframes dbModalFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes dbModalPop {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+[dir="rtl"] [role="dialog"] > .relative {
+  animation-name: dbModalPopRtl !important;
+}
+
+@keyframes dbModalPopRtl {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Sidebar draw-in animation (used by the new responsive Sidebar) */
+@keyframes dbDrawerIn {
+  from { opacity: 0; transform: translateX(20px) scale(0.985); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+[dir="rtl"] aside[role="dialog"] {
+  animation-name: dbDrawerInRtl !important;
+}
+
+@keyframes dbDrawerInRtl {
+  from { opacity: 0; transform: translateX(-20px) scale(0.985); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+/* Mobile drawer overlay fade */
+@keyframes dbOverlayFade {
+  from { opacity: 0; backdrop-filter: blur(0); }
+  to   { opacity: 1; backdrop-filter: blur(4px); }
+}
+
+@keyframes dbSidebarIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+[dir="rtl"] aside.hidden.lg\:flex {
+  animation-name: dbSidebarInRtl !important;
+}
+
+@keyframes dbSidebarInRtl {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Staggered fade-in for drawer items (used with inline animation-delay) */
+@keyframes dbItemFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Desktop sidebar collapse/expand transition.
+   Lives on the <aside> and animates width + padding so the main
+   content area (flex-1) expands fluidly in lockstep. */
+.sidebar-collapse-transition {
+  transition-property: width, padding-inline, padding-block, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(.22,.68,0,1);
+  will-change: width;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [style*="dbDrawerIn"],
+  [style*="dbSidebarIn"],
+  [style*="dbOverlayFade"],
+  [style*="dbItemFadeIn"],
+  [style*="fadeInUpTab"] {
+    animation: none !important;
+  }
+  .sidebar-collapse-transition {
+    transition: none !important;
+  }
+  .rotate-180,
+  [class*="rotate-"] {
+    transition: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Desktop-only padding override for `.main`. The mobile override at the
+     top of this file sets `padding: 16px` for viewports below the `lg`
+     breakpoint. Without this media query wrapper, the desktop value was
+     leaking onto mobile and causing horizontal overflow + off-center
+     content on every page using the EmployeeLayout. */
+  .main {
+    padding: 28px 28px 40px
+  }
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .02), rgba(255, 255, 255, 0)), var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px
+}
+
+.card+.card {
+  margin-top: var(--gap-cards-v)
+}
+
+/* Legacy 2-column grid for the old Profile / HRDashboard / VideoInterview
+   pages. Renamed from `.grid` to `.legacy-grid` so it no longer collides
+   with Tailwind's `grid-cols-*` utilities on every modern page. */
+.legacy-grid {
+  display: grid;
+  gap: var(--gap-grid);
+  grid-template-columns: 1.2fr 1fr
+}
+
+.sub {
+  color: var(--muted);
+  font-size: 13px
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-kpis);
+  margin-top: 8px
+}
+
+.kpi {
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border)
+}
+
+.kpi .value {
+  font-size: 22px;
+  font-weight: 700
+}
+
+.progress {
+  height: 10px;
+  background: rgba(148, 163, 184, .18);
+  border-radius: 999px;
+  overflow: hidden
+}
+
+.progress>span {
+  display: block;
+  height: 100%;
+  width: calc(var(--val, 0) * 1%);
+  background: linear-gradient(90deg, var(--primary), var(--accent))
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px
+}
+
+.chip {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border)
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  border: 1px solid rgba(148, 163, 184, .25);
+  background: linear-gradient(180deg, rgba(34, 197, 94, .16), rgba(34, 197, 94, .08))
+}
+
+.btn.secondary {
+  background: linear-gradient(180deg, rgba(56, 189, 248, .16), rgba(56, 189, 248, .08));
+  border-color: rgba(56, 189, 248, .35)
+}
+
+.btn.ghost {
+  background: transparent;
+  font-weight: 500
+}
+
+.jobs {
+  display: grid;
+  gap: var(--gap-jobs)
+}
+
+.job {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border)
+}
+
+.job .logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #38bdf8, #22c55e)
+}
+
+.match {
+  min-width: 84px;
+  text-align: center;
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(34, 197, 94, .1);
+  border: 1px solid rgba(34, 197, 94, .3);
+  color: #16a34a
+}
+
+@media (max-width:1100px) {
+  .grid,
+  .legacy-grid {
+    grid-template-columns: 1fr
+  }
+
+  .kpis {
+    grid-template-columns: repeat(2, 1fr)
+  }
+}
+
+@media (max-width:520px) {
+  .kpis {
+    grid-template-columns: 1fr
+  }
+}
+
+/* ── IBM Plex Sans Arabic: Global Arabic font enforcement ── */
+/*
+  We apply IBM Plex Sans Arabic to text-bearing elements only.
+  We deliberately EXCLUDE icon fonts (Material Symbols, FontAwesome)
+  by scoping to element types that hold real text — not span/i used as icons.
+  Using !important on a wildcard selector would break ligature-based icon fonts.
+*/
+
+/* Arabic body text — IBM Plex Sans Arabic as primary, fallback chain preserved */
+:lang(ar) body,
+:lang(ar) p,
+:lang(ar) h1, :lang(ar) h2, :lang(ar) h3,
+:lang(ar) h4, :lang(ar) h5, :lang(ar) h6,
+:lang(ar) label, :lang(ar) input,
+:lang(ar) textarea, :lang(ar) select,
+:lang(ar) button, :lang(ar) a,
+:lang(ar) li, :lang(ar) td, :lang(ar) th,
+[dir="rtl"] body,
+[dir="rtl"] p,
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3,
+[dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6,
+[dir="rtl"] label, [dir="rtl"] input,
+[dir="rtl"] textarea, [dir="rtl"] select,
+[dir="rtl"] button, [dir="rtl"] a,
+[dir="rtl"] li, [dir="rtl"] td, [dir="rtl"] th {
+  font-family: 'IBM Plex Sans Arabic', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Tahoma, Arial;
+}
+
+/* Preserve Material Symbols icon font — never override with IBM Plex Sans Arabic.
+   These rules must appear AFTER the Arabic text rules to win on specificity.
+   Material Symbols works via font ligatures, so the font-family MUST be exact. */
+.material-symbols-outlined,
+.material-symbols-rounded,
+.material-symbols-sharp,
+[class^="material-symbols"],
+[class*=" material-symbols"],
+[dir="rtl"] .material-symbols-outlined,
+[dir="rtl"] .material-symbols-rounded,
+[dir="rtl"] .material-symbols-sharp,
+[dir="rtl"] [class^="material-symbols"],
+[dir="rtl"] [class*=" material-symbols"],
+:lang(ar) .material-symbols-outlined,
+:lang(ar) .material-symbols-rounded,
+:lang(ar) .material-symbols-sharp,
+:lang(ar) [class^="material-symbols"],
+:lang(ar) [class*=" material-symbols"] {
+  font-family: 'Material Symbols Outlined' !important;
+  font-feature-settings: 'liga' !important;
+  -webkit-font-feature-settings: 'liga' !important;
+}
+
+/* Preserve FontAwesome icon font */
+.fa, .fas, .far, .fal, .fad, .fab,
+[class^="fa-"], [class*=" fa-"] {
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands' !important;
+}
+
+/* IBM Plex Sans Arabic-specific line-height adjustment for Arabic text blocks
+   IBM Plex Sans Arabic renders with slightly different metrics —
+   1.65 preserves the original clean design intent */
+:lang(ar) p,
+:lang(ar) label,
+:lang(ar) li,
+[dir="rtl"] p,
+[dir="rtl"] label,
+[dir="rtl"] li {
+  line-height: 1.65;
+  letter-spacing: 0;
+}
+
+/* ── Date input styling ─────────────────────────────────────────── */
+/* Clean up the native type="date" picker: style the calendar icon
+   and date text fields so they match our input design language. */
+
+input[type="date"] {
+  position: relative;
+  color-scheme: light;
+}
+.dark input[type="date"] {
+  color-scheme: dark;
+}
+
+/* Calendar picker icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.35;
+  padding: 2px;
+  transition: opacity 0.15s;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 0.7;
+}
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.6;
+}
+.dark input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 0.9;
+}
+
+/* Date text fields — inherit font/color from the input */
+input[type="date"]::-webkit-datetime-edit {
+  color: inherit;
+  padding: 0;
+  font-family: inherit;
+}
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  color: inherit;
+}
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+  color: inherit;
+  padding: 0;
+}
+
+/* Empty date — show placeholder-style color */
+input[type="date"]:not(:focus):not(:valid)::-webkit-datetime-edit {
+  color: #94a3b8;
+}
+.dark input[type="date"]:not(:focus):not(:valid)::-webkit-datetime-edit {
+  color: #64748b;
+}
+
+/* HRCandidateProfile tab animation */
+@keyframes fadeInUpTab {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* HRCandidateProfile TabBar — hide scrollbar on mobile */
+div[role="tablist"]::-webkit-scrollbar {
+  display: none;
+}
